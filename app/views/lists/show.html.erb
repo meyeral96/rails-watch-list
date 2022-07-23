@@ -1,0 +1,37 @@
+<div class="container">
+  <h1><%= @list.name %></h1>
+  <%= link_to "Edit", edit_list_path(@list),
+  data: {turbo_method: :edit} %>
+  <%= link_to "Delete",
+  list_path(@list),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+  <h2>Movies</h2>
+  <%= link_to 'Add Movie', new_list_bookmark_path(@list, @book) %>
+  <ul>
+    <% @list.bookmarks.each do |bookmark| %>
+      <li>
+        <p>Movie Name: <%=bookmark.movie.title %>, Comment: <%=bookmark.comment %></p>
+        <%= link_to "Edit bookmark", edit_list_bookmark_path(bookmark.list, bookmark),
+        data: {turbo_method: :edit} %>
+          <%= link_to "Delete",
+        list_bookmark_path(bookmark.list, bookmark),
+        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>Add Review</h3>
+  <%= simple_form_for([@list, @review]) do |f| %>
+    <%= f.input :rating %>
+    <%= f.input :comment %>
+    <%= f.submit %>
+  <% end %>
+
+  <h3>Reviews</h3>
+  <% @list.reviews.each do |review| %>
+    <p><%= review.rating %> </p>
+    <p><%= review.comment %> </p>
+    <hr>
+  <% end %>
+
+</div>
