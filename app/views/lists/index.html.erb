@@ -10,7 +10,18 @@
   <h1>Lists</h1>
   <ul>
     <% @lists.each do |list| %>
-    <h3><%= link_to "#{list.name}", "/lists/#{list.id}" %></h3>
+      <%= link_to list do %>
+        <div class="card-trip">
+            <% if list.photo.attached?%>
+              <%= cl_image_tag list.photo.key %>
+            <% end %>
+            <div class="card-trip-infos">
+              <div>
+              <h2><%= list.name %></h2>
+              </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </ul>
 </div>
