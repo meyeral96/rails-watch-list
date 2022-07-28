@@ -9,11 +9,11 @@
 require "json"
 require "open-uri"
 
-url = "https://api.themoviedb.org/3/movie/top_rated?api_key=2dd25e96db24d84334d3dbd744a22f88"
+url = "https://imdb-api.com/en/API/MostPopularMovies/k_fww0k4xj"
 movie_serialized = URI.open(url).read
 movies = JSON.parse(movie_serialized)
-movie_results = movies["results"]
+movie_results = movies["items"]
 
 movie_results.each do |movie|
-  Movie.create(title: movie["original_title"], overview: movie["overview"], poster_url: movie["poster_path"])
+  Movie.create(title: movie["title"], overview: movie["crew"], poster_url: movie["image"])
 end
